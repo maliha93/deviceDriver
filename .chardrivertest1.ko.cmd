@@ -1,0 +1,1 @@
+cmd_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/mehamasum/Desktop/deviceDriver/chardrivertest1.ko /home/mehamasum/Desktop/deviceDriver/chardrivertest1.o /home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o

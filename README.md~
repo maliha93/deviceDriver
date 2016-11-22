@@ -1,6 +1,6 @@
 # deviceDriver  
 
-##### sudo insmod chardrivertest1.ko  
+sudo insmod chardrivertest1.ko  
 
 // if devs are not created yet  
 sudo mknod /dev/chardev c $MAJOR 0  

@@ -23,6 +23,7 @@ static int Major;
 static int Device_Open = 0;
 static char msg[BUF_LEN];
 static char *msg_Ptr;
+static int temp;
 
 
 static struct file_operations fops = {
@@ -59,6 +60,9 @@ void cleanup_module(void)
 
 static int device_open(struct inode *inode, struct file *file)
 {
+
+	printk(KERN_INFO "opened by minor: %d\n", MINOR(inode->i_rdev));
+
 	static int counter = 0;
 	if (Device_Open)
 		return -EBUSY;
@@ -70,6 +74,8 @@ static int device_open(struct inode *inode, struct file *file)
 
 static int device_release(struct inode *inode, struct file *file)
 {
+	printk(KERN_INFO "released by minor: %d\n", MINOR(inode->i_rdev));
+
 	Device_Open--;
 /* We're now ready for our next caller */
 /*
@@ -80,31 +86,52 @@ static int device_release(struct inode *inode, struct file *file)
 	return 0;
 }
 
-static ssize_t device_read(struct file *filp,char *buffer,size_t length,loff_t * offset){
-	int bytes_read = 0;
-	if (*msg_Ptr == 0)
-		return 0;
-	while (length && *msg_Ptr) {
-		put_user(*(msg_Ptr++), buffer++);
-		length--;
-		bytes_read++;
+static ssize_t device_read(struct file *filp, char *buffer,size_t length,loff_t * offset){
+
+	temp = MINOR((filp->f_inode)->i_rdev);
+	printk(KERN_INFO "read request by minor: %d\n", temp);
+
+	if(temp==1) {
+
+		int bytes_read = 0;
+		if (*msg_Ptr == 0)
+			return 0;
+		while (length && *msg_Ptr) {
+			put_user(*(msg_Ptr++), buffer++);
+			length--;
+			bytes_read++;
+		}
+		if(bytes_read)
+			strcpy(msg,msg+bytes_read);
+		//printk(KERN_INFO "now %s length %d \n", msg,strlen(msg) );
+		return bytes_read;
 	}
-	if(bytes_read)
-		strcpy(msg,msg+bytes_read);
-	//printk(KERN_INFO "now %s length %d \n", msg,strlen(msg) );
-	return bytes_read;
+	else {
+		return -1;
+	}
+
+
 }
 
-static ssize_t device_write(struct file *file,const char __user * buffer, size_t length, loff_t * offset)
+static ssize_t device_write(struct file *filp, const char __user * buffer, size_t length, loff_t * offset)
 {
 
-	int j=strlen(msg);
-	int i;
-	for (i=0; i < length && j < BUF_LEN; i++,j++)
-		get_user(msg[j], buffer + i);
-	msg_Ptr = msg;
-	//printk(KERN_INFO "got %s\n", msg_Ptr );
-	return i;
+	temp = MINOR((filp->f_inode)->i_rdev);
+	printk(KERN_INFO "write request by minor: %d\n", temp); 
+
+	if(temp == 0) {
+		int j=strlen(msg);
+		int i;
+		for (i=0; i < length && j < BUF_LEN; i++,j++)
+			get_user(msg[j], buffer + i);
+		msg_Ptr = msg;
+		//printk(KERN_INFO "got %s\n", msg_Ptr );
+		return i;	
+	}
+
+	else {
+		return -1;
+	}
 }
 	
 
