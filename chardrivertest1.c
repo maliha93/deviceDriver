@@ -1,8 +1,3 @@
-/**
-* chardev.c: Creates a read−only char device that says how many times
-* you've read from the dev file
-*/
-
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/fs.h>
@@ -17,10 +12,11 @@ static ssize_t device_write(struct file *, const char *, size_t, loff_t *);
 
 DECLARE_WAIT_QUEUE_HEAD(WaitQ);
 DECLARE_WAIT_QUEUE_HEAD(WaitQ_read);
+DECLARE_WAIT_QUEUE_HEAD(WaitQ_write);
 
 #define SUCCESS 0
 #define DEVICE_NAME "chardev"
-#define BUF_LEN 80
+#define BUF_LEN 32
 
 static int Major;
 static int Device_Open = 0;
@@ -115,13 +111,14 @@ static ssize_t device_read(struct file *filp, char *buffer,size_t length,loff_t 
 
 		int bytes_read = 0;
 		open_for_read=1;
-		while(strlen(msg)<length){
+		while(strlen(msg)<length && !(filp->f_flags & O_NONBLOCK)){
 			int i, is_sig = 0;
 			wait_event_interruptible(WaitQ_read, (strlen(msg)>=length));
 			for (i = 0; i < _NSIG_WORDS && !is_sig; i++)
 				is_sig =current->pending.signal.sig[i] & ~current->blocked.sig[i];
 			if (is_sig) {
 				module_put(THIS_MODULE);
+				open_for_read=0;
 				return -EINTR;
 			}
 		}
@@ -135,7 +132,8 @@ static ssize_t device_read(struct file *filp, char *buffer,size_t length,loff_t 
 		if(bytes_read)
 			strcpy(msg,msg+bytes_read);
 		open_for_read=0;
-		//printk(KERN_INFO "now %s length %d \n", msg,strlen(msg) );
+		wake_up(&WaitQ_write);
+		printk(KERN_INFO "Now buffer contains %d bytes, content= %s\n",strlen(msg), msg );
 		return bytes_read;
 	}
 	else {
@@ -154,13 +152,28 @@ static ssize_t device_write(struct file *filp, const char __user * buffer, size_
 	if(temp == 0) {
 		open_for_write=1;
 		int j=strlen(msg);
+		printk(KERN_INFO "written from offset: %d\n", j);
 		int i;
-		for (i=0; i < length && j < BUF_LEN; i++,j++)
+		for (i=0; i < length && j < BUF_LEN; i++,j++){
 			get_user(msg[j], buffer + i);
+			wake_up(&WaitQ_read);
+			while(strlen(msg)==BUF_LEN &&  !(filp->f_flags & O_NONBLOCK)){
+				int x, is_sig = 0;
+				wait_event_interruptible(WaitQ_write, (strlen(msg)<BUF_LEN));
+				for (x = 0; x < _NSIG_WORDS && !is_sig; x++)
+					is_sig =current->pending.signal.sig[x] & ~current->blocked.sig[x];
+				if (is_sig) {
+					module_put(THIS_MODULE);
+					open_for_write=0;
+					return -EINTR;
+				}
+			}
+
+		}
 		msg_Ptr = msg;
 		open_for_write=0;
 		wake_up(&WaitQ_read);
-		//printk(KERN_INFO "got %s\n", msg_Ptr );
+		printk(KERN_INFO "Now buffer contains %d bytes, content= %s\n",strlen(msg), msg_Ptr );
 		return i;	
 	}
 
@@ -168,7 +181,3 @@ static ssize_t device_write(struct file *filp, const char __user * buffer, size_
 		return -1;
 	}
 }
-	
-
-
-
