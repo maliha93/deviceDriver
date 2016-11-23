@@ -1,1 +1,0 @@
-cmd_/home/maliha/deviceDriver/chardrivertest1.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/maliha/deviceDriver/chardrivertest1.ko /home/maliha/deviceDriver/chardrivertest1.o /home/maliha/deviceDriver/chardrivertest1.mod.o
