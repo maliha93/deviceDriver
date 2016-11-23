@@ -119,6 +119,7 @@ static ssize_t device_read(struct file *filp, char *buffer,size_t length,loff_t 
 			if (is_sig) {
 				module_put(THIS_MODULE);
 				open_for_read=0;
+				wake_up(&WaitQ_write);
 				return -EINTR;
 			}
 		}
@@ -165,6 +166,7 @@ static ssize_t device_write(struct file *filp, const char __user * buffer, size_
 				if (is_sig) {
 					module_put(THIS_MODULE);
 					open_for_write=0;
+					wake_up(&WaitQ_read);
 					return -EINTR;
 				}
 			}
