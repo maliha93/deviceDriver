@@ -1,14 +1,14 @@
-cmd_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := gcc -Wp,-MD,/home/mehamasum/Desktop/deviceDriver/.chardrivertest1.mod.o.d  -nostdinc -isystem /usr/lib/gcc/x86_64-linux-gnu/4.8/include  -I./arch/x86/include -Iarch/x86/include/generated/uapi -Iarch/x86/include/generated  -Iinclude -I./arch/x86/include/uapi -Iarch/x86/include/generated/uapi -I./include/uapi -Iinclude/generated/uapi -include ./include/linux/kconfig.h -Iubuntu/include  -D__KERNEL__ -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -Wno-format-security -std=gnu89 -m64 -mno-80387 -mno-fp-ret-in-387 -mtune=generic -mno-red-zone -mcmodel=kernel -funit-at-a-time -maccumulate-outgoing-args -DCONFIG_X86_X32_ABI -DCONFIG_AS_CFI=1 -DCONFIG_AS_CFI_SIGNAL_FRAME=1 -DCONFIG_AS_CFI_SECTIONS=1 -DCONFIG_AS_FXSAVEQ=1 -DCONFIG_AS_CRC32=1 -DCONFIG_AS_AVX=1 -DCONFIG_AS_AVX2=1 -pipe -Wno-sign-compare -fno-asynchronous-unwind-tables -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -fno-delete-null-pointer-checks -O2 --param=allow-store-data-races=0 -Wframe-larger-than=1024 -fstack-protector -Wno-unused-but-set-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -fno-var-tracking-assignments -pg -mfentry -DCC_USING_FENTRY -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack -Werror=implicit-int -Werror=strict-prototypes -DCC_HAVE_ASM_GOTO  -D"KBUILD_STR(s)=\#s" -D"KBUILD_BASENAME=KBUILD_STR(chardrivertest1.mod)"  -D"KBUILD_MODNAME=KBUILD_STR(chardrivertest1)" -DMODULE  -c -o /home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o /home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.c
+cmd_/home/maliha/deviceDriver/chardrivertest1.mod.o := gcc -Wp,-MD,/home/maliha/deviceDriver/.chardrivertest1.mod.o.d  -nostdinc -isystem /usr/lib/gcc/x86_64-linux-gnu/4.8/include  -I./arch/x86/include -Iarch/x86/include/generated  -Iinclude -I./arch/x86/include/uapi -Iarch/x86/include/generated/uapi -I./include/uapi -Iinclude/generated/uapi -include ./include/linux/kconfig.h -Iubuntu/include  -D__KERNEL__ -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -Wno-format-security -std=gnu89 -m64 -mno-mmx -mno-sse -mno-80387 -mno-fp-ret-in-387 -mpreferred-stack-boundary=3 -mtune=generic -mno-red-zone -mcmodel=kernel -funit-at-a-time -maccumulate-outgoing-args -DCONFIG_X86_X32_ABI -DCONFIG_AS_CFI=1 -DCONFIG_AS_CFI_SIGNAL_FRAME=1 -DCONFIG_AS_CFI_SECTIONS=1 -DCONFIG_AS_FXSAVEQ=1 -DCONFIG_AS_CRC32=1 -DCONFIG_AS_AVX=1 -DCONFIG_AS_AVX2=1 -pipe -Wno-sign-compare -fno-asynchronous-unwind-tables -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -fno-delete-null-pointer-checks -O2 -Wframe-larger-than=1024 -fstack-protector -Wno-unused-but-set-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -fno-var-tracking-assignments -pg -mfentry -DCC_USING_FENTRY -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack -Werror=implicit-int -Werror=strict-prototypes -DCC_HAVE_ASM_GOTO  -D"KBUILD_STR(s)=\#s" -D"KBUILD_BASENAME=KBUILD_STR(chardrivertest1.mod)"  -D"KBUILD_MODNAME=KBUILD_STR(chardrivertest1)" -DMODULE  -c -o /home/maliha/deviceDriver/chardrivertest1.mod.o /home/maliha/deviceDriver/chardrivertest1.mod.c
 
-source_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := /home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.c
+source_/home/maliha/deviceDriver/chardrivertest1.mod.o := /home/maliha/deviceDriver/chardrivertest1.mod.c
 
-deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
+deps_/home/maliha/deviceDriver/chardrivertest1.mod.o := \
     $(wildcard include/config/module/unload.h) \
   include/linux/module.h \
     $(wildcard include/config/sysfs.h) \
+    $(wildcard include/config/module/sig.h) \
     $(wildcard include/config/modules.h) \
     $(wildcard include/config/unused/symbols.h) \
-    $(wildcard include/config/module/sig.h) \
     $(wildcard include/config/generic/bug.h) \
     $(wildcard include/config/kallsyms.h) \
     $(wildcard include/config/smp.h) \
@@ -21,6 +21,7 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
   include/linux/list.h \
     $(wildcard include/config/debug/list.h) \
   include/linux/types.h \
+    $(wildcard include/config/have/uid16.h) \
     $(wildcard include/config/uid16.h) \
     $(wildcard include/config/lbdaf.h) \
     $(wildcard include/config/arch/dma/addr/t/64bit.h) \
@@ -56,14 +57,19 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
   include/linux/poison.h \
     $(wildcard include/config/illegal/pointer/value.h) \
   include/uapi/linux/const.h \
-  include/linux/kernel.h \
-    $(wildcard include/config/preempt/voluntary.h) \
-    $(wildcard include/config/debug/atomic/sleep.h) \
-    $(wildcard include/config/mmu.h) \
-    $(wildcard include/config/prove/locking.h) \
-    $(wildcard include/config/panic/timeout.h) \
-    $(wildcard include/config/ring/buffer.h) \
-  /usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdarg.h \
+  include/linux/stat.h \
+  arch/x86/include/uapi/asm/stat.h \
+  include/uapi/linux/stat.h \
+  include/linux/time.h \
+    $(wildcard include/config/arch/uses/gettimeoffset.h) \
+  include/linux/cache.h \
+    $(wildcard include/config/arch/has/cache/line/size.h) \
+  include/uapi/linux/kernel.h \
+  include/uapi/linux/sysinfo.h \
+  arch/x86/include/asm/cache.h \
+    $(wildcard include/config/x86/l1/cache/shift.h) \
+    $(wildcard include/config/x86/internode/cache/shift.h) \
+    $(wildcard include/config/x86/vsmp.h) \
   include/linux/linkage.h \
   include/linux/stringify.h \
   include/linux/export.h \
@@ -72,6 +78,32 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
   arch/x86/include/asm/linkage.h \
     $(wildcard include/config/x86/64.h) \
     $(wildcard include/config/x86/alignment/16.h) \
+  include/linux/seqlock.h \
+    $(wildcard include/config/debug/lock/alloc.h) \
+  include/linux/spinlock.h \
+    $(wildcard include/config/debug/spinlock.h) \
+    $(wildcard include/config/generic/lockbreak.h) \
+    $(wildcard include/config/preempt.h) \
+  include/linux/typecheck.h \
+  include/linux/preempt.h \
+    $(wildcard include/config/debug/preempt.h) \
+    $(wildcard include/config/preempt/tracer.h) \
+    $(wildcard include/config/preempt/count.h) \
+    $(wildcard include/config/context/tracking.h) \
+    $(wildcard include/config/preempt/notifiers.h) \
+  arch/x86/include/asm/preempt.h \
+  arch/x86/include/asm/rmwcc.h \
+  arch/x86/include/asm/percpu.h \
+    $(wildcard include/config/x86/64/smp.h) \
+    $(wildcard include/config/x86/cmpxchg64.h) \
+  include/linux/kernel.h \
+    $(wildcard include/config/preempt/voluntary.h) \
+    $(wildcard include/config/debug/atomic/sleep.h) \
+    $(wildcard include/config/mmu.h) \
+    $(wildcard include/config/prove/locking.h) \
+    $(wildcard include/config/panic/timeout.h) \
+    $(wildcard include/config/ring/buffer.h) \
+  /usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdarg.h \
   include/linux/bitops.h \
   arch/x86/include/asm/bitops.h \
     $(wildcard include/config/x86/cmov.h) \
@@ -83,10 +115,6 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
   arch/x86/include/asm/segment.h \
     $(wildcard include/config/cc/stackprotector.h) \
     $(wildcard include/config/x86/32/lazy/gs.h) \
-  arch/x86/include/asm/cache.h \
-    $(wildcard include/config/x86/l1/cache/shift.h) \
-    $(wildcard include/config/x86/internode/cache/shift.h) \
-    $(wildcard include/config/x86/vsmp.h) \
   arch/x86/include/asm/page_types.h \
     $(wildcard include/config/physical/start.h) \
     $(wildcard include/config/physical/align.h) \
@@ -117,21 +145,17 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
   arch/x86/include/asm/spinlock_types.h \
     $(wildcard include/config/paravirt/spinlocks.h) \
     $(wildcard include/config/nr/cpus.h) \
+    $(wildcard include/config/queue/rwlock.h) \
   include/asm-generic/qrwlock_types.h \
   include/asm-generic/ptrace.h \
   arch/x86/include/asm/cpufeature.h \
-    $(wildcard include/config/x86/feature/names.h) \
     $(wildcard include/config/x86/debug/static/cpu/has.h) \
   arch/x86/include/asm/required-features.h \
     $(wildcard include/config/x86/minimum/cpu/family.h) \
     $(wildcard include/config/math/emulation.h) \
-    $(wildcard include/config/x86/cmpxchg64.h) \
     $(wildcard include/config/x86/use/3dnow.h) \
     $(wildcard include/config/x86/p6/nop.h) \
     $(wildcard include/config/matom.h) \
-  arch/x86/include/asm/disabled-features.h \
-    $(wildcard include/config/x86/intel/mpx.h) \
-  arch/x86/include/asm/rmwcc.h \
   arch/x86/include/asm/barrier.h \
     $(wildcard include/config/x86/ppro/fence.h) \
   arch/x86/include/asm/nops.h \
@@ -153,9 +177,8 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
   include/linux/log2.h \
     $(wildcard include/config/arch/has/ilog2/u32.h) \
     $(wildcard include/config/arch/has/ilog2/u64.h) \
-  include/linux/typecheck.h \
   include/linux/printk.h \
-    $(wildcard include/config/message/loglevel/default.h) \
+    $(wildcard include/config/default/message/loglevel.h) \
     $(wildcard include/config/early/printk.h) \
     $(wildcard include/config/printk.h) \
     $(wildcard include/config/dynamic/debug.h) \
@@ -163,31 +186,7 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
     $(wildcard include/config/broken/rodata.h) \
     $(wildcard include/config/lto.h) \
   include/linux/kern_levels.h \
-  include/linux/cache.h \
-    $(wildcard include/config/arch/has/cache/line/size.h) \
-  include/uapi/linux/kernel.h \
-  include/uapi/linux/sysinfo.h \
   include/linux/dynamic_debug.h \
-  include/linux/stat.h \
-  arch/x86/include/uapi/asm/stat.h \
-  include/uapi/linux/stat.h \
-  include/linux/time.h \
-    $(wildcard include/config/arch/uses/gettimeoffset.h) \
-  include/linux/seqlock.h \
-    $(wildcard include/config/debug/lock/alloc.h) \
-  include/linux/spinlock.h \
-    $(wildcard include/config/debug/spinlock.h) \
-    $(wildcard include/config/generic/lockbreak.h) \
-    $(wildcard include/config/preempt.h) \
-  include/linux/preempt.h \
-    $(wildcard include/config/debug/preempt.h) \
-    $(wildcard include/config/preempt/tracer.h) \
-    $(wildcard include/config/preempt/count.h) \
-    $(wildcard include/config/context/tracking.h) \
-    $(wildcard include/config/preempt/notifiers.h) \
-  arch/x86/include/asm/preempt.h \
-  arch/x86/include/asm/percpu.h \
-    $(wildcard include/config/x86/64/smp.h) \
   include/asm-generic/percpu.h \
     $(wildcard include/config/have/setup/per/cpu/area.h) \
   include/linux/threads.h \
@@ -209,7 +208,6 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
   arch/x86/include/asm/page_64.h \
     $(wildcard include/config/debug/virtual.h) \
     $(wildcard include/config/flatmem.h) \
-    $(wildcard include/config/x86/vsyscall/emulation.h) \
   include/linux/range.h \
   include/asm-generic/memory_model.h \
     $(wildcard include/config/discontigmem.h) \
@@ -281,6 +279,7 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
     $(wildcard include/config/jump/label.h) \
   arch/x86/include/asm/jump_label.h \
   arch/x86/include/asm/qrwlock.h \
+    $(wildcard include/config/x86/oostore.h) \
   include/asm-generic/qrwlock.h \
   include/linux/rwlock.h \
   include/linux/spinlock_api_smp.h \
@@ -313,7 +312,6 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
     $(wildcard include/config/inline/write/unlock/irq.h) \
     $(wildcard include/config/inline/read/unlock/irqrestore.h) \
     $(wildcard include/config/inline/write/unlock/irqrestore.h) \
-  include/linux/time64.h \
   include/uapi/linux/time.h \
   include/linux/uidgid.h \
     $(wildcard include/config/user/ns.h) \
@@ -336,7 +334,6 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
     $(wildcard include/config/compaction.h) \
     $(wildcard include/config/have/memblock/node/map.h) \
     $(wildcard include/config/flat/node/mem/map.h) \
-    $(wildcard include/config/page/extension.h) \
     $(wildcard include/config/no/bootmem.h) \
     $(wildcard include/config/have/memory/present.h) \
     $(wildcard include/config/have/memoryless/nodes.h) \
@@ -376,17 +373,17 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
   arch/x86/include/asm/rwsem.h \
   include/linux/srcu.h \
   include/linux/rcupdate.h \
+    $(wildcard include/config/rcu/torture/test.h) \
     $(wildcard include/config/tree/rcu.h) \
-    $(wildcard include/config/preempt/rcu.h) \
+    $(wildcard include/config/tree/preempt/rcu.h) \
     $(wildcard include/config/rcu/trace.h) \
+    $(wildcard include/config/preempt/rcu.h) \
     $(wildcard include/config/rcu/stall/common.h) \
     $(wildcard include/config/rcu/user/qs.h) \
-    $(wildcard include/config/rcu/nocb/cpu.h) \
-    $(wildcard include/config/tasks/rcu.h) \
     $(wildcard include/config/tiny/rcu.h) \
     $(wildcard include/config/debug/objects/rcu/head.h) \
-    $(wildcard include/config/rcu/boost.h) \
     $(wildcard include/config/rcu/nocb/cpu/all.h) \
+    $(wildcard include/config/rcu/nocb/cpu.h) \
     $(wildcard include/config/no/hz/full/sysidle.h) \
   include/linux/completion.h \
   include/linux/debugobjects.h \
@@ -400,6 +397,7 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
     $(wildcard include/config/timer/stats.h) \
     $(wildcard include/config/debug/objects/timers.h) \
   include/linux/ktime.h \
+    $(wildcard include/config/ktime/scalar.h) \
   include/linux/jiffies.h \
   include/linux/timex.h \
   include/uapi/linux/timex.h \
@@ -411,7 +409,6 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
   arch/x86/include/asm/timex.h \
   arch/x86/include/asm/tsc.h \
     $(wildcard include/config/x86/tsc.h) \
-  include/linux/timekeeping.h \
   arch/x86/include/asm/mmzone.h \
   arch/x86/include/asm/mmzone_64.h \
   arch/x86/include/asm/smp.h \
@@ -421,6 +418,7 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
   arch/x86/include/asm/mpspec.h \
     $(wildcard include/config/eisa.h) \
     $(wildcard include/config/x86/mpparse.h) \
+    $(wildcard include/config/acpi.h) \
   arch/x86/include/asm/mpspec_def.h \
   arch/x86/include/asm/x86_init.h \
   arch/x86/include/uapi/asm/bootparam.h \
@@ -448,6 +446,7 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
   include/linux/pm.h \
     $(wildcard include/config/vt/console/sleep.h) \
     $(wildcard include/config/pm.h) \
+    $(wildcard include/config/pm/runtime.h) \
     $(wildcard include/config/pm/clk.h) \
     $(wildcard include/config/pm/generic/domains.h) \
   arch/x86/include/asm/fixmap.h \
@@ -456,7 +455,6 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
     $(wildcard include/config/pci/mmconfig.h) \
     $(wildcard include/config/x86/intel/mid.h) \
   arch/x86/include/asm/acpi.h \
-    $(wildcard include/config/acpi.h) \
     $(wildcard include/config/acpi/numa.h) \
   include/acpi/pdc_intel.h \
   arch/x86/include/asm/numa.h \
@@ -530,10 +528,15 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
     $(wildcard include/config/have/cmpxchg/double.h) \
     $(wildcard include/config/have/aligned/struct/page.h) \
     $(wildcard include/config/transparent/hugepage.h) \
+    $(wildcard include/config/want/page/debug/flags.h) \
     $(wildcard include/config/aio.h) \
     $(wildcard include/config/mmu/notifier.h) \
   include/linux/auxvec.h \
   include/uapi/linux/auxvec.h \
+  include/linux/page-debug-flags.h \
+    $(wildcard include/config/page/poisoning.h) \
+    $(wildcard include/config/page/guard.h) \
+    $(wildcard include/config/page/debug/something/else.h) \
   include/linux/uprobes.h \
     $(wildcard include/config/uprobes.h) \
   arch/x86/include/asm/uprobes.h \
@@ -581,6 +584,6 @@ deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o := \
   include/linux/vermagic.h \
   include/generated/utsrelease.h \
 
-/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o: $(deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o)
+/home/maliha/deviceDriver/chardrivertest1.mod.o: $(deps_/home/maliha/deviceDriver/chardrivertest1.mod.o)
 
-$(deps_/home/mehamasum/Desktop/deviceDriver/chardrivertest1.mod.o):
+$(deps_/home/maliha/deviceDriver/chardrivertest1.mod.o):

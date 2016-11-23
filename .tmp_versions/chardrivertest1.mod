@@ -1,2 +1,2 @@
-/home/mehamasum/Desktop/deviceDriver/chardrivertest1.ko
-/home/mehamasum/Desktop/deviceDriver/chardrivertest1.o
+/home/maliha/deviceDriver/chardrivertest1.ko
+/home/maliha/deviceDriver/chardrivertest1.o

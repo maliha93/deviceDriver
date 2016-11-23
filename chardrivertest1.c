@@ -7,13 +7,16 @@
 #include <linux/module.h>
 #include <linux/fs.h>
 #include <asm/uaccess.h>
-
+#include <linux/sched.h>
 int init_module(void);
 void cleanup_module(void);
 static int device_open(struct inode *, struct file *);
 static int device_release(struct inode *, struct file *);
 static ssize_t device_read(struct file *, char *, size_t, loff_t *);
 static ssize_t device_write(struct file *, const char *, size_t, loff_t *);
+
+DECLARE_WAIT_QUEUE_HEAD(WaitQ);
+DECLARE_WAIT_QUEUE_HEAD(WaitQ_read);
 
 #define SUCCESS 0
 #define DEVICE_NAME "chardev"
@@ -25,7 +28,8 @@ static char msg[BUF_LEN];
 static char *msg_Ptr;
 static int temp;
 
-
+static int open_for_read=0;
+static int open_for_write=0;
 static struct file_operations fops = {
 .read = device_read,
 .write = device_write,
@@ -60,12 +64,27 @@ void cleanup_module(void)
 
 static int device_open(struct inode *inode, struct file *file)
 {
-
-	printk(KERN_INFO "opened by minor: %d\n", MINOR(inode->i_rdev));
-
-	static int counter = 0;
-	if (Device_Open)
+	
+	if (Device_Open && (file->f_flags & O_NONBLOCK))
 		return -EBUSY;
+	printk(KERN_INFO "opened by minor: %d\n", MINOR(inode->i_rdev));
+	int minor=MINOR(inode->i_rdev);
+	while (Device_Open) {
+		int i, is_sig = 0;
+		if((!minor && open_for_write) || (minor && open_for_read)){
+			wait_event_interruptible(WaitQ, !Device_Open);
+			for (i = 0; i < _NSIG_WORDS && !is_sig; i++)
+				is_sig =current->pending.signal.sig[i] & ~current->blocked.sig[i];
+			if (is_sig) {
+				module_put(THIS_MODULE);
+				return -EINTR;
+			}
+		}
+		else
+			break;
+	}
+
+	//static int counter = 0;
 	Device_Open++;
 	msg_Ptr = msg;
 	try_module_get(THIS_MODULE);
@@ -82,6 +101,7 @@ static int device_release(struct inode *inode, struct file *file)
 * Decrement the usage count, or else once you opened the file, you'll
 * never get get rid of the module.
 */
+	wake_up(&WaitQ);
 	module_put(THIS_MODULE);
 	return 0;
 }
@@ -94,7 +114,18 @@ static ssize_t device_read(struct file *filp, char *buffer,size_t length,loff_t 
 	if(temp==1) {
 
 		int bytes_read = 0;
-		if (*msg_Ptr == 0)
+		open_for_read=1;
+		while(strlen(msg)<length){
+			int i, is_sig = 0;
+			wait_event_interruptible(WaitQ_read, (strlen(msg)>=length));
+			for (i = 0; i < _NSIG_WORDS && !is_sig; i++)
+				is_sig =current->pending.signal.sig[i] & ~current->blocked.sig[i];
+			if (is_sig) {
+				module_put(THIS_MODULE);
+				return -EINTR;
+			}
+		}
+		if (*msg_Ptr == 0 || !strlen(msg))
 			return 0;
 		while (length && *msg_Ptr) {
 			put_user(*(msg_Ptr++), buffer++);
@@ -103,6 +134,7 @@ static ssize_t device_read(struct file *filp, char *buffer,size_t length,loff_t 
 		}
 		if(bytes_read)
 			strcpy(msg,msg+bytes_read);
+		open_for_read=0;
 		//printk(KERN_INFO "now %s length %d \n", msg,strlen(msg) );
 		return bytes_read;
 	}
@@ -118,13 +150,16 @@ static ssize_t device_write(struct file *filp, const char __user * buffer, size_
 
 	temp = MINOR((filp->f_inode)->i_rdev);
 	printk(KERN_INFO "write request by minor: %d\n", temp); 
-
+	
 	if(temp == 0) {
+		open_for_write=1;
 		int j=strlen(msg);
 		int i;
 		for (i=0; i < length && j < BUF_LEN; i++,j++)
 			get_user(msg[j], buffer + i);
 		msg_Ptr = msg;
+		open_for_write=0;
+		wake_up(&WaitQ_read);
 		//printk(KERN_INFO "got %s\n", msg_Ptr );
 		return i;	
 	}
